@@ -1,0 +1,35 @@
+<head>
+  <title>DemoApp 2017</title>
+</head>
+
+<template name="main">
+  <h1>Main page</h1>
+  {{>add_comments}}
+  <hr>
+  {{>show_comments}}
+</template>
+
+<template name="about">
+  <h1>About this app</h1>
+</template>
+
+<template name="add_comments">
+  username:<input type="text" id="username"><br>
+  comments:<input type="text" id="comments"><br>
+  <button id="addcomments" class="btn btn-primary">
+    add to comments
+  </button>
+</template>
+
+<template name="show_comments">
+  <ul>
+  {{#each c in commentslist}}
+    <li>{{> comments_row comments=c}}</li>
+  {{/each}}
+  </ul>
+</template>
+
+<template name="comments_row">
+  {{comments.username}}--{{comments.comments}}
+  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+</template>
