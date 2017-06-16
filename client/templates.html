@@ -31,5 +31,7 @@
 
 <template name="comments_row">
   {{comments.username}}--{{comments.comments}}
+  {{#if ifOwner}}
   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+  {{/if}}
 </template>
