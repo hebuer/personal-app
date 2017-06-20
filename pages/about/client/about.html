@@ -1,0 +1,24 @@
+<template name="about">
+<h1>About this app</h1>
+
+Here is our team:
+<table class="table table-bordered">
+	<thead>
+		<tr><th>Name</th><th>Email</th></tr>
+	</thead>
+	<tbody>
+		{{#each person in team}}
+  		{{> teamrow t=person}}
+		{{/each}}
+	</tbody>
+</table>
+<img src="https://scontent.fbos1-1.fna.fbcdn.net/v/t1.0-9/11870893_501778626642741_2325673134051823737_n.jpg?oh=9ba90e866b049efb8905ea0454038b4d&oe=59CE69DC">
+</template>
+
+
+<template name="teamrow">
+   <tr>
+   	  <td>{{t.name}}</td>
+   	  <td>{{t.email}}</td>
+   </tr>
+</template>
