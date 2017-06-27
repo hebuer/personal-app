@@ -10,7 +10,7 @@
 <template name="add_comments">
   username:<input type="text" id="username"><br>
   comments:<input type="text" id="comments"><br>
-  <button id="addcomments" class="btn btn-primary">
+  <button id="addComments" class="btn btn-primary">
     add to comments
   </button>
 </template>
@@ -25,9 +25,17 @@
 
 <template name="comments_row">
   {{comments.username}}--{{comments.comments}}
-
+{{#if owner}}
   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-<!--{{#if ifOwner}}
+  <button type="button" id="enableEdit" class="btn btn-info btn-xs">edit</button>
+  {{#if isEditing}}
+  comments:<input type="text" id="newComments"><br>
+  <button id="editComments" class="btn btn-primary">
+    edit your comments
+  </button>
+  {{/if}}
+    {{/if}}
+<!--{{#if owner}}
   {{/if}}
 -->
 </template>

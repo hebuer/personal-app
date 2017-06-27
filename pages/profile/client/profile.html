@@ -3,5 +3,21 @@
 </head>
 
 <template name="profile">
-  {{> loginButtons}} 
+  {{> loginButtons}}
+  <body>
+    {{#if currentUser}}
+      {{>add_profiles}}
+    {{else}}
+      <h2>You must log in to upload your profile</h2>
+      {{/if}}
+
+  </body>
+</template>
+
+<template name="add_profiles">
+  username:<input type="text" id="username"><br>
+  comments:<input type="text" id="comments"><br>
+  <button id="addprofiles" class="btn btn-primary">
+    add info
+  </button>
 </template>
