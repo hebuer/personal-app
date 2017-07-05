@@ -1,8 +1,19 @@
 
 
 Template.show_comments.helpers({
+
   commentslist() {return Comments.find()},
 })
+
+if(Meteor.isClient){
+Template.show_comments.onCreated(function show_comments_OnCreated() {
+  Meteor.subscribe('comments');
+});
+
+Template.comments_row.onCreated(function comments_row_OnCreated() {
+  Meteor.subscribe('comments');
+});
+}
 
 Template.add_comments.events({
   'click button[id=addComments]'(elt,instance) {
@@ -39,22 +50,14 @@ Template.comments_row.events({
 //   this.Dict.set("id");
 // })
 Template.comments_row.onCreated(function comments_row_OnCreated() {
-  // counter starts at 0
   this.Editing= new ReactiveVar(false);
 });
 
 
 Template.comments_row.events({
      'click button[id=enableEdit]'(event,instance){
-        // Template.instance().Dict.set("Editing", true);
-        // console.log(this._id);
-        // console.log(this.comments._id);
-        // console.dir(this);
-        // console.dir(event);
-        // console.dir(instance);
-        instance.Editing.set(true);
-        console.log(instance.Editing.get());
-      // Editing = false;
+      instance.Editing.set(true);
+      console.log(instance.Editing.get());
     }
 })
 
@@ -70,14 +73,8 @@ Template.comments_row.events({
       console.log("this comments: "+this.comments);
       var id = this.comments._id;
       console.log("var id:"+id);
-      // var com ={ username:username,
-      //             comments:comments,
-      //             owner:Meteor.userId()
-      //           };
-
       Meteor.call('com.edit',id,newComments);
       instance.Editing.set(false);
-    // Template.instance().Dict.set("Editing", false);
     }
 })
 Template.comments_row.helpers({
