@@ -13,6 +13,13 @@ textarea {
     margin: 8px 0;
     box-sizing: border-box;
 }
+li {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
 </style>
 </head>
 
@@ -23,6 +30,8 @@ textarea {
     {{#if currentUser}}
       {{>add_recipe}}
       <hr>
+      <h2>Recipe Collections:</h2>
+      <br>
       {{>show_recipe}}
     {{else}}
       <h2>You must log in to upload your recipe</h2>
@@ -32,12 +41,13 @@ textarea {
 </template>
 
 <template name="add_recipe">
-  title:<input type="text" id="title"><br>
-  ingredient:<textarea rows="4" cols="50" id="ingredient" placeholder="type here"></textarea>
-  <br>
-  <button id="addRecipe" class="btn btn-primary">
-    Add Recipe
-  </button>
+    title:<input type="text" id="title"><br>
+    ingredient:<input type="text" id="ingredient"><br>
+    instruction:<textarea rows="4" cols="50" id="instruction" placeholder="type here"></textarea>
+    <br>
+    <button id="add" class="btn btn-primary">
+        Add Recipe
+    </button>
 </template>
 
 <template name="show_recipe">
@@ -49,12 +59,13 @@ textarea {
 </template>
 
 <template name="recipe_row">
-  {{recipe.title}}--{{recipes.ingredient}}
+  <h3>title: <strong>{{recipe.title}} </strong>  |     ingredients: <strong>{{recipe.ingredient}}</strong></h3><br>
+  Instructions: {{recipe.instruction}}
   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
   <button type="button" id="enableEdit" class="btn btn-info btn-xs">edit</button>
   {{#if isEditing}}
-  recipe:<input type="text" id="newRecipe"><br>
-  <button id="editRecipe" class="btn btn-primary">
+  edit your recipe:<input type="text" id="newRecipe"><br>
+  <button id="edit" class="btn btn-primary">
     edit your recipe
   </button>
   {{/if}}

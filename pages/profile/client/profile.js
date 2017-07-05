@@ -4,26 +4,40 @@ Template.show_recipe.helpers({
   recipelist() {return Recipes.find()},
 })
 
+if(Meteor.isClient){
+    Template.show_recipe.onCreated(function show_recipe_OnCreated() {
+      Meteor.subscribe('recipes');
+    });
+}
+
 Template.add_recipe.events({
-  'click button[id=addComments]'(elt,instance) {
+  'click button[id=add]'(elt,instance) {
     const title = instance.$('#title').val();
     const ingredient = instance.$('#ingredient').val();
+    const instruction = instance.$('#instruction').val();
+    console.log(title);
+    console.log(ingredient);
+    console.log(instruction);
     instance.$('#title').val("");
     instance.$('#ingredient').val("");
-    var recipevar ={ title:title,
+    instance.$('#instruction').val("");
+    var recipeVar ={ title:title,
                 ingredient:ingredient,
+                instruction:instruction,
                 owner:Meteor.userId()
               };
-    Meteor.call('recipe.insert',recipevar);
+    console.log(recipeVar);
+    Meteor.call('recipe.insert',recipeVar);
   }
 })
 
 Template.recipe_row.events({
      'click span'(elt,instance){
-    //  console.dir(this);
+      // console.dir(this);
       //console.log(this);
-      console.log(this.ingredient._id);
-      Meteor.call('recipe.remove',this.ingredient);
+      console.log("id: "+this.recipe._id);
+      console.log("print recipe: "+this.recipe.title);
+      Meteor.call('recipe.remove',this.recipe);
     }
 })
 
@@ -40,35 +54,22 @@ Template.recipe_row.onCreated(function recipe_row_OnCreated() {
 
 Template.recipe_row.events({
      'click button[id=enableEdit]'(event,instance){
-        // Template.instance().Dict.set("Editing", true);
-        // console.log(this._id);
-        // console.log(this.comments._id);
-        // console.dir(this);
-        // console.dir(event);
-        // console.dir(instance);
         instance.Editing.set(true);
         console.log(instance.Editing.get());
-      // Editing = false;
     }
 })
 
 Template.recipe_row.events({
-     'click button[id=editRecipe]'(elt,instance){
-      const old = this.ingredient.ingredient;
-      const newIngredient = instance.$('#newRecipe').val();
+     'click button[id=edit]'(elt,instance){
+      const old = this.recipe.instruction;
+      const newInstruction = instance.$('#newRecipe').val();
       console.log("this id:"+this._id);
-      console.log("this comment id:"+this.ingredient._id);
       console.log("old comments: "+old);
-      console.log("new comments: "+newIngredient);
+      console.log("new comments: "+newInstruction);
       console.log("this comments: "+this.ingredient);
-      var id = this.ingredient._id;
+      var id = this.recipe._id;
       console.log("var id:"+id);
-      // var com ={ username:username,
-      //             comments:comments,
-      //             owner:Meteor.userId()
-      //           };
-
-      Meteor.call('recipe.edit',id,newIngredient);
+      Meteor.call('recipe.edit',id,newInstruction);
       instance.Editing.set(false);
     // Template.instance().Dict.set("Editing", false);
     }
