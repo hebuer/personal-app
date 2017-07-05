@@ -6,13 +6,9 @@ Template.show_comments.helpers({
 })
 
 if(Meteor.isClient){
-Template.show_comments.onCreated(function show_comments_OnCreated() {
-  Meteor.subscribe('comments');
-});
-
-Template.comments_row.onCreated(function comments_row_OnCreated() {
-  Meteor.subscribe('comments');
-});
+    Template.show_comments.onCreated(function show_comments_OnCreated() {
+      Meteor.subscribe('comments');
+    });
 }
 
 Template.add_comments.events({

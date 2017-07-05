@@ -4,6 +4,12 @@ Template.show_recipe.helpers({
   recipelist() {return Recipes.find()},
 })
 
+if(Meteor.isClient){
+    Template.show_recipe.onCreated(function show_recipe_OnCreated() {
+      Meteor.subscribe('recipes');
+    });
+}
+
 Template.add_recipe.events({
   'click button[id=add]'(elt,instance) {
     const title = instance.$('#title').val();
